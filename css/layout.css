@@ -1,0 +1,99 @@
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--darker);
+  border-bottom: 4px solid var(--gold);
+  padding: 0 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.nav-logo {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: var(--gold);
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+.nav-logo span { color: var(--red); }
+.nav-links { display: flex; gap: 1.75rem; list-style: none; }
+.nav-links a {
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color .2s;
+}
+.nav-links a:hover, .nav-links a:focus-visible { color: var(--gold); }
+.lives {
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+/* ── SECTIONS SHARED ── */
+section {
+  padding: 5rem 1.5rem;
+  position: relative;
+}
+.section-label {
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--gold);
+  letter-spacing: 3px;
+  margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.75rem;
+  max-width: 1100px;
+  margin-inline: auto;
+}
+.section-label::before, .section-label::after {
+  content: ''; flex: 1;
+  height: 2px; background: var(--gold); opacity: 0.3;
+}
+.section-title {
+  font-family: var(--font-pixel);
+  font-size: clamp(0.85rem, 4vw, 1.4rem);
+  color: var(--white);
+  margin-bottom: 2.5rem;
+  text-align: center;
+  line-height: 1.7;
+}
+.section-title span { color: var(--gold); }
+
+/* ── WORLD DIVIDERS ── */
+.world-divider {
+  text-align: center;
+  padding: 0.85rem 1rem;
+  background: var(--darker);
+  border-top: 4px solid var(--brick);
+  border-bottom: 4px solid var(--brick);
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--brick-light);
+  letter-spacing: 2px;
+}
+
+/* ── GRIDS (mobile-first: single column, expand via min()/auto-fit) ── */
+.about-grid {
+  max-width: 900px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+.skills-grid,
+.projects-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+.contact-grid {
+  max-width: 800px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.exp-container { max-width: 800px; margin: 0 auto; }
+.exp-item {
+  display: grid; grid-template-columns: 64px 1fr;
+  gap: 1rem; margin-bottom: 2rem; align-items: start;
+}

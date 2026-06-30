@@ -1,0 +1,57 @@
+/* ── DESIGN TOKENS ── */
+:root {
+  --sky: #5C94FC;
+  --red: #E52521;
+  --gold: #FBD000;
+  --green: #43A047;
+  --dark: #1A1A2E;
+  --darker: #0D0D1A;
+  --white: #FFFFFF;
+  --brick: #C84B00;
+  --brick-light: #E86020;
+
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-body: 'Inter', sans-serif;
+
+  /* Fluid type scale (clamped per-section, these are shared baselines) */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--dark);
+  color: var(--white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+img, canvas { max-width: 100%; }
+
+a { color: inherit; }
+
+.pixel-text { font-family: var(--font-pixel); }
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--darker); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 0; }

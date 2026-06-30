@@ -1,0 +1,109 @@
+/* ── FOOTER ── */
+footer {
+  background: var(--darker);
+  border-top: 6px solid var(--brick);
+  position: relative;
+}
+
+.footer-top {
+  background: rgba(0,0,0,0.3);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  border-bottom: 3px solid rgba(255,255,255,0.07);
+}
+.footer-top p {
+  font-family: var(--font-pixel); font-size: 0.4rem;
+  color: rgba(255,255,255,0.5); letter-spacing: 1px;
+  line-height: 1.8;
+}
+.footer-top strong { color: var(--gold); }
+
+/* ── GAME SECTION ──
+   Standalone section, not a footer accessory. On mobile, the canvas
+   height is driven by viewport height (not width-based aspect-ratio),
+   so it stays large and playable regardless of screen width. Desktop
+   reverts to a fixed aspect-ratio box in responsive.css. */
+.game-section {
+  background: var(--sky);
+  padding: 3rem 1rem;
+}
+.game-section .section-label,
+.game-section .section-title {
+  color: var(--darker);
+}
+.game-section .section-label { opacity: 0.8; }
+.game-section .section-label::before,
+.game-section .section-label::after {
+  background: var(--darker);
+}
+.game-section .section-title span { color: var(--red); }
+
+.game-wrapper {
+  position: relative;
+  user-select: none;
+  touch-action: manipulation;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.game-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.game-title-pixel {
+  font-family: var(--font-pixel); font-size: 0.5rem;
+  color: var(--darker); letter-spacing: 1px;
+}
+.game-stats {
+  font-family: var(--font-pixel); font-size: 0.42rem;
+  color: var(--darker); display: flex; gap: 1rem;
+  flex-wrap: wrap;
+}
+.game-stats span { display: flex; align-items: center; gap: 0.3rem; white-space: nowrap; }
+
+/*
+ * Canvas container — mobile-first: height is a viewport-relative value,
+ * NOT an aspect-ratio derived from width. On a narrow phone, width-based
+ * aspect-ratio (e.g. 900:280) crushes height to ~110px; clamp() against
+ * vh keeps the game tall and playable no matter how narrow the screen is.
+ * The canvas's *drawing buffer* resolution is set in JS (devicePixelRatio
+ * aware) — this CSS only controls the on-screen box.
+ */
+.game-canvas-wrap {
+  width: 100%;
+  height: clamp(320px, 65vh, 520px);
+  border: 4px solid var(--darker);
+  box-shadow: 0 6px 0 rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+#gameCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.game-instructions {
+  text-align: center; margin-top: 0.6rem;
+  font-family: var(--font-pixel); font-size: 0.36rem;
+  color: var(--darker); opacity: 0.75;
+  letter-spacing: 1px;
+  line-height: 1.6;
+}
+
+.footer-bottom {
+  background: rgba(0,0,0,0.5);
+  padding: 1rem;
+  text-align: center;
+}
+.footer-bottom p {
+  font-family: var(--font-pixel); font-size: 0.34rem;
+  color: rgba(255,255,255,0.3); letter-spacing: 1px;
+  line-height: 1.8;
+}

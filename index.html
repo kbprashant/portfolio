@@ -2,666 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Prasanth B — Portfolio</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --sky: #5C94FC;
-    --red: #E52521;
-    --gold: #FBD000;
-    --green: #43A047;
-    --dark: #1A1A2E;
-    --darker: #0D0D1A;
-    --white: #FFFFFF;
-    --brick: #C84B00;
-    --brick-light: #E86020;
-    --cloud: #F0F0F0;
-    --pixel: 'Press Start 2P', monospace;
-    --body: 'Inter', sans-serif;
-  }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--dark);
-    color: var(--white);
-    font-family: var(--body);
-    overflow-x: hidden;
-  }
-
-  /* ── PIXEL ART HELPERS ── */
-  .pixel-text { font-family: var(--pixel); }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: var(--darker);
-    border-bottom: 4px solid var(--gold);
-    padding: 0 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 60px;
-  }
-  .nav-logo {
-    font-family: var(--pixel);
-    font-size: 0.7rem;
-    color: var(--gold);
-    letter-spacing: 2px;
-  }
-  .nav-logo span { color: var(--red); }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    font-family: var(--pixel);
-    font-size: 0.5rem;
-    color: var(--white);
-    text-decoration: none;
-    letter-spacing: 1px;
-    transition: color .2s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-  .lives {
-    font-family: var(--pixel);
-    font-size: 0.55rem;
-    color: var(--gold);
-  }
-
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    background: var(--sky);
-    position: relative;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    overflow: hidden;
-    padding-top: 60px;
-  }
-
-  /* Clouds */
-  .cloud {
-    position: absolute;
-    background: var(--white);
-    border-radius: 20px;
-    animation: cloudFloat linear infinite;
-    opacity: 0.9;
-  }
-  .cloud::before, .cloud::after {
-    content: '';
-    position: absolute;
-    background: var(--white);
-    border-radius: 50%;
-  }
-  @keyframes cloudFloat {
-    from { transform: translateX(110vw); }
-    to   { transform: translateX(-30vw); }
-  }
-
-  /* Ground */
-  .hero-ground {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 80px;
-    background: var(--green);
-    border-top: 8px solid #2E7D32;
-  }
-  .hero-ground::before {
-    content: '';
-    position: absolute; top: -12px; left: 0; right: 0;
-    height: 12px;
-    background: repeating-linear-gradient(
-      90deg,
-      #4CAF50 0px, #4CAF50 40px,
-      #43A047 40px, #43A047 80px
-    );
-  }
-
-  /* Pixel Mario sprite (CSS art) */
-  .mario-sprite {
-    position: absolute; bottom: 80px; left: 10%;
-    width: 32px; height: 48px;
-    animation: marioWalk 0.5s steps(2) infinite, marioRun 8s linear infinite;
-    image-rendering: pixelated;
-    font-size: 32px;
-    filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5));
-  }
-  @keyframes marioWalk {
-    0%  { transform: scaleX(1) translateY(0);   }
-    50% { transform: scaleX(1) translateY(-3px); }
-  }
-  @keyframes marioRun {
-    0%   { left: -5%; }
-    100% { left: 110%; }
-  }
-
-  /* Pipe decoration */
-  .pipe {
-    position: absolute; bottom: 80px;
-    width: 48px;
-    display: flex; flex-direction: column; align-items: center;
-  }
-  .pipe-head {
-    width: 56px; height: 16px;
-    background: var(--green);
-    border: 4px solid #1B5E20;
-    border-radius: 2px;
-  }
-  .pipe-body {
-    width: 40px;
-    background: var(--green);
-    border-left: 4px solid #1B5E20;
-    border-right: 4px solid #1B5E20;
-  }
-
-  /* Brick block */
-  .brick-block {
-    position: absolute;
-    width: 32px; height: 32px;
-    background: var(--brick);
-    border: 3px solid var(--darker);
-    box-shadow: inset -3px -3px 0 rgba(0,0,0,0.3), inset 3px 3px 0 rgba(255,255,255,0.1);
-  }
-  .question-block {
-    position: absolute;
-    width: 32px; height: 32px;
-    background: var(--gold);
-    border: 3px solid var(--darker);
-    box-shadow: inset -3px -3px 0 rgba(0,0,0,0.3), inset 3px 3px 0 rgba(255,255,255,0.2);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--pixel); font-size: 0.6rem;
-    color: var(--darker);
-    animation: qBlockBob 1s ease-in-out infinite alternate;
-    cursor: pointer;
-  }
-  @keyframes qBlockBob {
-    from { transform: translateY(0);   }
-    to   { transform: translateY(-4px); }
-  }
-
-  /* Hero content */
-  .hero-content {
-    text-align: center; z-index: 10; position: relative;
-    padding: 2rem;
-  }
-  .hero-eyebrow {
-    font-family: var(--pixel);
-    font-size: 0.5rem;
-    color: var(--gold);
-    letter-spacing: 4px;
-    margin-bottom: 1.5rem;
-  }
-  .hero-name {
-    font-family: var(--pixel);
-    font-size: clamp(1.2rem, 4vw, 2.5rem);
-    color: var(--darker);
-    text-shadow:
-      4px 4px 0 var(--red),
-      8px 8px 0 rgba(0,0,0,0.3);
-    margin-bottom: 1rem;
-    line-height: 1.4;
-  }
-  .hero-role {
-    font-family: var(--pixel);
-    font-size: clamp(0.5rem, 1.5vw, 0.8rem);
-    color: var(--white);
-    background: var(--darker);
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    border: 3px solid var(--gold);
-    margin-bottom: 2rem;
-    letter-spacing: 2px;
-  }
-  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-  .btn {
-    font-family: var(--pixel);
-    font-size: 0.55rem;
-    padding: 0.75rem 1.5rem;
-    border: none; cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    letter-spacing: 1px;
-    transition: transform .1s, box-shadow .1s;
-    position: relative;
-  }
-  .btn::after {
-    content: '';
-    position: absolute; bottom: -4px; left: 4px;
-    right: -4px; top: 4px;
-    z-index: -1;
-  }
-  .btn-primary {
-    background: var(--red);
-    color: var(--white);
-    box-shadow: 4px 4px 0 #8B0000;
-  }
-  .btn-primary:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #8B0000; }
-  .btn-primary:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 #8B0000; }
-  .btn-secondary {
-    background: var(--gold);
-    color: var(--darker);
-    box-shadow: 4px 4px 0 #8B6914;
-  }
-  .btn-secondary:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #8B6914; }
-
-  /* Coin counter */
-  .coin-counter {
-    position: absolute; top: 80px; right: 2rem;
-    font-family: var(--pixel); font-size: 0.55rem;
-    color: var(--gold);
-    background: rgba(0,0,0,0.5);
-    padding: 0.5rem 1rem;
-    border: 2px solid var(--gold);
-  }
-
-  /* ── SECTIONS SHARED ── */
-  section {
-    padding: 6rem 2rem;
-    position: relative;
-  }
-  .section-label {
-    font-family: var(--pixel);
-    font-size: 0.55rem;
-    color: var(--gold);
-    letter-spacing: 4px;
-    margin-bottom: 0.75rem;
-    display: flex; align-items: center; gap: 0.75rem;
-  }
-  .section-label::before, .section-label::after {
-    content: ''; flex: 1;
-    height: 2px; background: var(--gold); opacity: 0.3;
-  }
-  .section-title {
-    font-family: var(--pixel);
-    font-size: clamp(0.9rem, 2.5vw, 1.4rem);
-    color: var(--white);
-    margin-bottom: 3rem;
-    text-align: center;
-    line-height: 1.6;
-  }
-  .section-title span { color: var(--gold); }
-
-  /* ── WORLD DIVIDERS ── */
-  .world-divider {
-    text-align: center;
-    padding: 1rem;
-    background: var(--darker);
-    border-top: 4px solid var(--brick);
-    border-bottom: 4px solid var(--brick);
-    font-family: var(--pixel);
-    font-size: 0.55rem;
-    color: var(--brick-light);
-    letter-spacing: 4px;
-  }
-
-  /* ── ABOUT ── */
-  #about { background: var(--dark); }
-  .about-grid {
-    max-width: 900px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 2fr; gap: 3rem;
-    align-items: start;
-  }
-  .about-card {
-    background: var(--darker);
-    border: 3px solid var(--gold);
-    padding: 1.5rem;
-    text-align: center;
-    position: relative;
-  }
-  .about-card::before {
-    content: 'PLAYER 1';
-    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-    background: var(--gold);
-    color: var(--darker);
-    font-family: var(--pixel);
-    font-size: 0.4rem;
-    padding: 2px 8px;
-  }
-  .avatar-pixel {
-    font-size: 5rem;
-    display: block;
-    margin: 1rem auto 1.5rem;
-    filter: drop-shadow(0 4px 0 rgba(0,0,0,0.5));
-  }
-  .stat-row {
-    display: flex; justify-content: space-between;
-    font-family: var(--pixel); font-size: 0.4rem;
-    color: var(--white); margin-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 0.5rem;
-  }
-  .stat-row span:last-child { color: var(--gold); }
-  .about-text p {
-    font-size: 0.95rem; line-height: 1.8;
-    color: rgba(255,255,255,0.8);
-    margin-bottom: 1rem;
-  }
-  .about-text p strong { color: var(--gold); font-weight: 600; }
-
-  /* ── SKILLS ── */
-  #skills { background: #12122a; }
-  .skills-grid {
-    max-width: 1000px; margin: 0 auto;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-  .skill-world {
-    background: var(--darker);
-    border: 3px solid rgba(255,255,255,0.1);
-    padding: 1.5rem;
-    position: relative;
-    transition: border-color .2s, transform .2s;
-  }
-  .skill-world:hover {
-    border-color: var(--gold);
-    transform: translateY(-4px);
-  }
-  .skill-world-title {
-    font-family: var(--pixel);
-    font-size: 0.5rem;
-    color: var(--gold);
-    margin-bottom: 1rem;
-    letter-spacing: 2px;
-  }
-  .skill-tags {
-    display: flex; flex-wrap: wrap; gap: 0.5rem;
-  }
-  .skill-tag {
-    font-family: var(--pixel);
-    font-size: 0.4rem;
-    padding: 0.35rem 0.75rem;
-    background: rgba(255,255,255,0.05);
-    border: 2px solid rgba(255,255,255,0.15);
-    color: rgba(255,255,255,0.9);
-    letter-spacing: 1px;
-  }
-  .skill-tag.highlight {
-    border-color: var(--gold);
-    color: var(--gold);
-    background: rgba(251,208,0,0.08);
-  }
-
-  /* ── EXPERIENCE ── */
-  #experience { background: var(--dark); }
-  .exp-container { max-width: 800px; margin: 0 auto; }
-  .exp-item {
-    display: grid; grid-template-columns: 80px 1fr;
-    gap: 1.5rem; margin-bottom: 2.5rem; align-items: start;
-  }
-  .exp-level {
-    text-align: center;
-    background: var(--darker);
-    border: 3px solid var(--green);
-    padding: 0.75rem 0.5rem;
-  }
-  .exp-level-num {
-    font-family: var(--pixel); font-size: 1.2rem;
-    color: var(--green); display: block; margin-bottom: 0.25rem;
-  }
-  .exp-level-text {
-    font-family: var(--pixel); font-size: 0.3rem;
-    color: rgba(255,255,255,0.5); letter-spacing: 1px;
-  }
-  .exp-card {
-    background: var(--darker);
-    border: 2px solid rgba(255,255,255,0.1);
-    border-left: 4px solid var(--green);
-    padding: 1.25rem 1.5rem;
-    position: relative;
-  }
-  .exp-card::before {
-    content: '';
-    position: absolute; left: -12px; top: 20px;
-    width: 0; height: 0;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-right: 8px solid var(--green);
-  }
-  .exp-company {
-    font-family: var(--pixel); font-size: 0.55rem;
-    color: var(--green); margin-bottom: 0.25rem;
-    letter-spacing: 2px;
-  }
-  .exp-role {
-    font-family: var(--pixel); font-size: 0.65rem;
-    color: var(--white); margin-bottom: 0.25rem;
-  }
-  .exp-date {
-    font-family: var(--pixel); font-size: 0.4rem;
-    color: rgba(255,255,255,0.4); margin-bottom: 1rem;
-  }
-  .exp-bullets { list-style: none; }
-  .exp-bullets li {
-    font-size: 0.85rem; line-height: 1.7;
-    color: rgba(255,255,255,0.75);
-    padding-left: 1.25rem; margin-bottom: 0.4rem;
-    position: relative;
-  }
-  .exp-bullets li::before {
-    content: '▶';
-    position: absolute; left: 0;
-    color: var(--gold); font-size: 0.5rem;
-    top: 4px;
-  }
-
-  /* ── PROJECTS ── */
-  #projects { background: #12122a; }
-  .projects-grid {
-    max-width: 1100px; margin: 0 auto;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-  }
-  .project-card {
-    background: var(--darker);
-    border: 3px solid rgba(255,255,255,0.1);
-    position: relative; overflow: hidden;
-    transition: transform .2s, border-color .2s;
-    display: flex; flex-direction: column;
-  }
-  .project-card:hover { transform: translateY(-6px); border-color: var(--sky); }
-  .project-card-header {
-    padding: 1.5rem 1.5rem 0.75rem;
-    border-bottom: 2px solid rgba(255,255,255,0.07);
-    display: flex; align-items: center; gap: 1rem;
-  }
-  .project-icon { font-size: 2rem; }
-  .project-header-text {}
-  .project-name {
-    font-family: var(--pixel); font-size: 0.55rem;
-    color: var(--white); margin-bottom: 0.2rem;
-    letter-spacing: 1px;
-  }
-  .project-subtitle {
-    font-family: var(--pixel); font-size: 0.4rem;
-    color: var(--sky);
-  }
-  .project-body { padding: 1rem 1.5rem 1.5rem; flex: 1; }
-  .project-desc {
-    font-size: 0.85rem; line-height: 1.7;
-    color: rgba(255,255,255,0.7); margin-bottom: 1rem;
-  }
-  .project-tech {
-    display: flex; flex-wrap: wrap; gap: 0.4rem;
-    margin-bottom: 1rem;
-  }
-  .project-tech span {
-    font-family: var(--pixel); font-size: 0.35rem;
-    padding: 0.2rem 0.5rem;
-    background: rgba(92,148,252,0.15);
-    border: 1px solid rgba(92,148,252,0.4);
-    color: var(--sky);
-  }
-  .project-links {
-    display: flex; gap: 0.75rem;
-  }
-  .project-link {
-    font-family: var(--pixel); font-size: 0.4rem;
-    padding: 0.4rem 0.75rem;
-    text-decoration: none;
-    border: 2px solid;
-    transition: background .2s, color .2s;
-  }
-  .project-link.live {
-    border-color: var(--gold); color: var(--gold);
-  }
-  .project-link.live:hover { background: var(--gold); color: var(--darker); }
-  .project-link.github {
-    border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.6);
-  }
-  .project-link.github:hover { background: rgba(255,255,255,0.1); color: white; }
-
-  /* ── EDUCATION ── */
-  #education { background: var(--dark); }
-  .edu-card {
-    max-width: 600px; margin: 0 auto;
-    background: var(--darker);
-    border: 3px solid var(--gold);
-    padding: 2rem;
-    text-align: center;
-    position: relative;
-  }
-  .edu-trophy { font-size: 3.5rem; margin-bottom: 1rem; display: block; }
-  .edu-degree {
-    font-family: var(--pixel); font-size: 0.65rem;
-    color: var(--gold); margin-bottom: 0.5rem;
-    line-height: 1.6;
-  }
-  .edu-college {
-    font-family: var(--pixel); font-size: 0.45rem;
-    color: rgba(255,255,255,0.7); margin-bottom: 0.75rem;
-    line-height: 1.6;
-  }
-  .edu-year {
-    font-family: var(--pixel); font-size: 0.4rem;
-    color: rgba(255,255,255,0.4); margin-bottom: 1.5rem;
-  }
-  .gpa-bar-wrap {
-    background: rgba(255,255,255,0.1);
-    height: 20px; border: 2px solid var(--gold);
-    margin-bottom: 0.5rem; position: relative; overflow: hidden;
-  }
-  .gpa-bar {
-    height: 100%; background: var(--gold);
-    width: 90%; position: relative;
-    animation: gpaFill 2s ease-out forwards;
-  }
-  @keyframes gpaFill {
-    from { width: 0; }
-    to   { width: 90%; }
-  }
-  .gpa-label {
-    font-family: var(--pixel); font-size: 0.45rem;
-    color: var(--gold);
-  }
-
-  /* ── CONTACT ── */
-  #contact { background: #12122a; }
-  .contact-grid {
-    max-width: 800px; margin: 0 auto;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-  }
-  .contact-item {
-    background: var(--darker);
-    border: 2px solid rgba(255,255,255,0.1);
-    padding: 1.5rem;
-    text-align: center;
-    text-decoration: none;
-    transition: border-color .2s, transform .2s;
-    display: block;
-  }
-  .contact-item:hover { border-color: var(--gold); transform: translateY(-4px); }
-  .contact-icon { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
-  .contact-type {
-    font-family: var(--pixel); font-size: 0.4rem;
-    color: var(--gold); margin-bottom: 0.4rem;
-    letter-spacing: 2px;
-  }
-  .contact-value {
-    font-size: 0.8rem; color: rgba(255,255,255,0.7);
-    word-break: break-all;
-  }
-
-  /* ── FOOTER + GAME ── */
-  footer {
-    background: var(--darker);
-    border-top: 6px solid var(--brick);
-    position: relative;
-  }
-
-  .footer-top {
-    background: rgba(0,0,0,0.3);
-    padding: 1.5rem 2rem;
-    text-align: center;
-    border-bottom: 3px solid rgba(255,255,255,0.07);
-  }
-  .footer-top p {
-    font-family: var(--pixel); font-size: 0.5rem;
-    color: rgba(255,255,255,0.5); letter-spacing: 2px;
-  }
-  .footer-top strong { color: var(--gold); }
-
-  /* GAME SECTION */
-  .game-wrapper {
-    padding: 1.5rem;
-    background: var(--sky);
-    position: relative;
-    user-select: none;
-  }
-  .game-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 0.75rem;
-  }
-  .game-title-pixel {
-    font-family: var(--pixel); font-size: 0.55rem;
-    color: var(--darker); letter-spacing: 2px;
-  }
-  .game-stats {
-    font-family: var(--pixel); font-size: 0.5rem;
-    color: var(--darker); display: flex; gap: 1.5rem;
-  }
-  .game-stats span { display: flex; align-items: center; gap: 0.4rem; }
-
-  /* Canvas */
-  #gameCanvas {
-    display: block;
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    border: 4px solid var(--darker);
-    box-shadow: 0 6px 0 rgba(0,0,0,0.4);
-    cursor: pointer;
-    image-rendering: pixelated;
-  }
-
-  .game-instructions {
-    text-align: center; margin-top: 0.75rem;
-    font-family: var(--pixel); font-size: 0.4rem;
-    color: var(--darker); opacity: 0.7;
-    letter-spacing: 1px;
-  }
-
-  .footer-bottom {
-    background: rgba(0,0,0,0.5);
-    padding: 1rem 2rem;
-    text-align: center;
-  }
-  .footer-bottom p {
-    font-family: var(--pixel); font-size: 0.4rem;
-    color: rgba(255,255,255,0.3); letter-spacing: 1px;
-  }
-
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 8px; }
-  ::-webkit-scrollbar-track { background: var(--darker); }
-  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 0; }
-
-  /* Responsive */
-  @media (max-width: 640px) {
-    .about-grid { grid-template-columns: 1fr; }
-    .exp-item { grid-template-columns: 1fr; }
-    .exp-card::before { display: none; }
-    .nav-links { display: none; }
-  }
-</style>
+<!-- Stylesheets loaded in dependency order: tokens/reset -> layout -> components -> game -> responsive overrides -->
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/game.css">
+<link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
 
@@ -673,6 +24,7 @@
     <li><a href="#skills">SKILLS</a></li>
     <li><a href="#experience">EXP</a></li>
     <li><a href="#projects">PROJECTS</a></li>
+    <li><a href="#game">GAME</a></li>
     <li><a href="#contact">CONTACT</a></li>
   </ul>
   <div class="lives">⭐ SDE I</div>
@@ -680,49 +32,28 @@
 
 <!-- HERO -->
 <section id="hero">
-  <!-- Clouds -->
-  <div class="cloud" style="top:15%;width:120px;height:40px;animation-duration:18s;animation-delay:0s;">
-    <div style="position:absolute;top:-20px;left:20px;width:50px;height:40px;background:white;border-radius:50%;"></div>
-    <div style="position:absolute;top:-12px;left:50px;width:35px;height:30px;background:white;border-radius:50%;"></div>
-  </div>
-  <div class="cloud" style="top:25%;width:90px;height:30px;animation-duration:22s;animation-delay:-6s;">
-    <div style="position:absolute;top:-18px;left:10px;width:40px;height:36px;background:white;border-radius:50%;"></div>
-    <div style="position:absolute;top:-10px;left:40px;width:30px;height:25px;background:white;border-radius:50%;"></div>
-  </div>
-  <div class="cloud" style="top:10%;width:100px;height:35px;animation-duration:25s;animation-delay:-12s;">
-    <div style="position:absolute;top:-22px;left:15px;width:45px;height:44px;background:white;border-radius:50%;"></div>
-    <div style="position:absolute;top:-14px;left:50px;width:38px;height:32px;background:white;border-radius:50%;"></div>
-  </div>
+  <div class="cloud" style="top:15%;width:120px;height:40px;animation-duration:18s;animation-delay:0s;"></div>
+  <div class="cloud" style="top:25%;width:90px;height:30px;animation-duration:22s;animation-delay:-6s;"></div>
+  <div class="cloud" style="top:10%;width:100px;height:35px;animation-duration:25s;animation-delay:-12s;"></div>
 
-  <!-- Decorative blocks -->
-  <div class="question-block" style="top:35%;left:20%;">?</div>
-  <div class="question-block" style="top:35%;left:calc(20% + 40px);">?</div>
-  <div class="brick-block" style="top:35%;left:calc(20% + 80px);"></div>
-  <div class="question-block" style="top:35%;left:calc(20% + 120px);">?</div>
+  <div class="question-block" style="top:35%;left:15%;">?</div>
+  <div class="question-block" style="top:35%;left:calc(15% + 36px);">?</div>
+  <div class="brick-block" style="top:35%;left:calc(15% + 72px);"></div>
 
-  <div class="question-block" style="top:40%;right:25%;">?</div>
-  <div class="brick-block" style="top:40%;right:calc(25% - 36px);"></div>
-  <div class="brick-block" style="top:40%;right:calc(25% - 72px);"></div>
+  <div class="question-block" style="top:42%;right:18%;">?</div>
+  <div class="brick-block" style="top:42%;right:calc(18% - 32px);"></div>
 
-  <!-- Pipes -->
-  <div class="pipe" style="right:15%;">
+  <div class="pipe" style="right:8%;">
     <div class="pipe-head"></div>
-    <div class="pipe-body" style="height:60px;"></div>
-  </div>
-  <div class="pipe" style="left:5%;">
-    <div class="pipe-head"></div>
-    <div class="pipe-body" style="height:40px;"></div>
+    <div class="pipe-body" style="height:50px;"></div>
   </div>
 
-  <!-- Walking Mario -->
   <div class="mario-sprite">🏃</div>
 
-  <!-- Coin counter overlay -->
   <div class="coin-counter">🪙 COINS: 00 &nbsp; SCORE: 0000</div>
 
-  <!-- Main content -->
   <div class="hero-content">
-    <p class="hero-eyebrow">★ WORLD 1-1 &nbsp;&nbsp; PLAYER SELECT ★</p>
+    <p class="hero-eyebrow">★ WORLD 1-1 &nbsp; PLAYER SELECT ★</p>
     <h1 class="hero-name">PRASANTH B</h1>
     <div class="hero-role">JUNIOR SOFTWARE ENGINEER</div>
     <div class="hero-btns">
@@ -734,7 +65,6 @@
   <div class="hero-ground"></div>
 </section>
 
-<!-- WORLD DIVIDER -->
 <div class="world-divider">— WORLD 1-2 : ABOUT ME —</div>
 
 <!-- ABOUT -->
@@ -758,7 +88,6 @@
   </div>
 </section>
 
-<!-- WORLD DIVIDER -->
 <div class="world-divider">— WORLD 1-3 : POWER-UPS —</div>
 
 <!-- SKILLS -->
@@ -828,7 +157,6 @@
   </div>
 </section>
 
-<!-- WORLD DIVIDER -->
 <div class="world-divider">— WORLD 2-1 : QUEST LOG —</div>
 
 <!-- EXPERIENCE -->
@@ -843,7 +171,7 @@
         <span class="exp-level-text">CURRENT</span>
       </div>
       <div class="exp-card">
-        <div class="exp-company">MARCHEHEALTHCARE</div>
+        <div class="exp-company">MARCHE HEALTHCARE</div>
         <div class="exp-role">JUNIOR SOFTWARE ENGINEER</div>
         <div class="exp-date">SEP 2025 — PRESENT</div>
         <ul class="exp-bullets">
@@ -894,7 +222,6 @@
   </div>
 </section>
 
-<!-- WORLD DIVIDER -->
 <div class="world-divider">— WORLD 2-2 : ITEM CHEST —</div>
 
 <!-- PROJECTS -->
@@ -906,7 +233,7 @@
     <div class="project-card">
       <div class="project-card-header">
         <span class="project-icon">🏥</span>
-        <div class="project-header-text">
+        <div>
           <div class="project-name">AROKIYAM</div>
           <div class="project-subtitle">HEALTHCARE PLATFORM</div>
         </div>
@@ -917,7 +244,7 @@
           <span>Flutter</span><span>Node.js</span><span>PostgreSQL</span><span>AWS ECS</span>
         </div>
         <div class="project-links">
-          <a href="https://arokiyam.in" target="_blank" class="project-link live">▶ LIVE SITE</a>
+          <a href="https://arokiyam.in" target="_blank" rel="noopener" class="project-link live">▶ LIVE SITE</a>
         </div>
       </div>
     </div>
@@ -925,7 +252,7 @@
     <div class="project-card">
       <div class="project-card-header">
         <span class="project-icon">🗺️</span>
-        <div class="project-header-text">
+        <div>
           <div class="project-name">PONDY GIS MAP</div>
           <div class="project-subtitle">GEOJSON VISUALIZER</div>
         </div>
@@ -936,7 +263,7 @@
           <span>JavaScript</span><span>Leaflet.js</span><span>GeoJSON</span><span>HTML5</span>
         </div>
         <div class="project-links">
-          <a href="https://github.com/kbprashant/geojson-webviewer" target="_blank" class="project-link github">⌗ GITHUB</a>
+          <a href="https://github.com/kbprashant/geojson-webviewer" target="_blank" rel="noopener" class="project-link github">⌗ GITHUB</a>
         </div>
       </div>
     </div>
@@ -944,7 +271,7 @@
     <div class="project-card">
       <div class="project-card-header">
         <span class="project-icon">🎥</span>
-        <div class="project-header-text">
+        <div>
           <div class="project-name">VIRTUAL TOUR GEN</div>
           <div class="project-subtitle">360° TOUR BUILDER</div>
         </div>
@@ -955,7 +282,7 @@
           <span>C#</span><span>WinForms</span><span>WebView2</span><span>JavaScript</span>
         </div>
         <div class="project-links">
-          <a href="https://github.com/kbprashant/VirtualTourGenerator" target="_blank" class="project-link github">⌗ GITHUB</a>
+          <a href="https://github.com/kbprashant/VirtualTourGenerator" target="_blank" rel="noopener" class="project-link github">⌗ GITHUB</a>
         </div>
       </div>
     </div>
@@ -963,7 +290,7 @@
     <div class="project-card">
       <div class="project-card-header">
         <span class="project-icon">📅</span>
-        <div class="project-header-text">
+        <div>
           <div class="project-name">DOCTOR BOOKING APP</div>
           <div class="project-subtitle">APPOINTMENT PLATFORM</div>
         </div>
@@ -974,7 +301,7 @@
           <span>.NET MAUI</span><span>PHP APIs</span><span>MySQL</span><span>WebRTC</span>
         </div>
         <div class="project-links">
-          <a href="https://github.com/kbprashant/DoctorBookingApp" target="_blank" class="project-link github">⌗ GITHUB</a>
+          <a href="https://github.com/kbprashant/DoctorBookingApp" target="_blank" rel="noopener" class="project-link github">⌗ GITHUB</a>
         </div>
       </div>
     </div>
@@ -982,7 +309,31 @@
   </div>
 </section>
 
-<!-- WORLD DIVIDER -->
+<div class="world-divider">— BONUS LEVEL : ARCADE —</div>
+
+<!-- GAME (standalone section, not a footer widget) -->
+<section id="game" class="game-section">
+  <p class="section-label">BONUS LEVEL</p>
+  <h2 class="section-title">PLAY <span>MARIO RUNNER</span></h2>
+
+  <div class="game-wrapper">
+    <div class="game-header">
+      <div class="game-title-pixel">🍄 MARIO RUNNER</div>
+      <div class="game-stats">
+        <span>🪙 <span id="scoreDisplay">0</span></span>
+        <span>❤️ <span id="livesDisplay">3</span></span>
+        <span>🏆 <span id="hiDisplay">0</span></span>
+      </div>
+    </div>
+
+    <div class="game-canvas-wrap">
+      <canvas id="gameCanvas" aria-label="Mario Runner mini-game. Press space or tap to jump."></canvas>
+    </div>
+
+    <div class="game-instructions">PRESS SPACE / TAP TO JUMP &nbsp;|&nbsp; DOUBLE JUMP SUPPORTED</div>
+  </div>
+</section>
+
 <div class="world-divider">— WORLD 3-1 : CASTLE —</div>
 
 <!-- EDUCATION -->
@@ -999,7 +350,6 @@
   </div>
 </section>
 
-<!-- WORLD DIVIDER -->
 <div class="world-divider">— WORLD 3-2 : WARP ZONE —</div>
 
 <!-- CONTACT -->
@@ -1017,12 +367,12 @@
       <div class="contact-type">PHONE</div>
       <div class="contact-value">+91 8144967067</div>
     </a>
-    <a href="https://github.com/kbprashant" target="_blank" class="contact-item">
+    <a href="https://github.com/kbprashant" target="_blank" rel="noopener" class="contact-item">
       <span class="contact-icon">🐙</span>
       <div class="contact-type">GITHUB</div>
       <div class="contact-value">github.com/kbprashant</div>
     </a>
-    <a href="https://linkedin.com/in/prashant-kb" target="_blank" class="contact-item">
+    <a href="https://linkedin.com/in/prashant-kb" target="_blank" rel="noopener" class="contact-item">
       <span class="contact-icon">💼</span>
       <div class="contact-type">LINKEDIN</div>
       <div class="contact-value">linkedin.com/in/prashant-kb</div>
@@ -1030,408 +380,35 @@
   </div>
 </section>
 
-<!-- FOOTER WITH GAME -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <p>PRASANTH B &nbsp;|&nbsp; PORTFOLIO <strong>v1.0</strong> &nbsp;|&nbsp; BUILT WITH ❤️ + ☕</p>
   </div>
 
-  <!-- MINI GAME -->
-  <div class="game-wrapper">
-    <div class="game-header" style="max-width:900px;margin:0 auto;">
-      <div class="game-title-pixel">🍄 MARIO RUNNER</div>
-      <div class="game-stats">
-        <span>🪙 <span id="scoreDisplay">0</span></span>
-        <span>❤️ <span id="livesDisplay">3</span></span>
-        <span>🏆 <span id="hiDisplay">0</span></span>
-      </div>
-    </div>
-    <canvas id="gameCanvas" width="900" height="180"></canvas>
-    <div class="game-instructions">PRESS SPACE / TAP TO JUMP &nbsp;|&nbsp; DOUBLE JUMP SUPPORTED</div>
-  </div>
-
   <div class="footer-bottom">
-    <p>© 2025 PRASANTH B &nbsp;·&nbsp; ALL RIGHTS RESERVED &nbsp;·&nbsp; MADE WITH PRESS START 2P</p>
+    <p>© 2026 PRASANTH B &nbsp;·&nbsp; ALL RIGHTS RESERVED &nbsp;·&nbsp; MADE WITH PRESS START 2P</p>
   </div>
 </footer>
 
-<script>
-// ─── MARIO RUNNER GAME ───────────────────────────────────────────────────────
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
-
-// Responsive canvas scaling
-function resizeCanvas() {
-  const wrapper = canvas.parentElement;
-  const maxW = Math.min(wrapper.clientWidth - 32, 900);
-  canvas.style.width = maxW + 'px';
-  canvas.style.height = (maxW * 180 / 900) + 'px';
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-const W = 900, H = 180;
-const GROUND = H - 40;
-
-// Colors
-const C = {
-  sky: '#5C94FC', ground: '#43A047', groundTop: '#4CAF50',
-  dark: '#1A1A2E', gold: '#FBD000', red: '#E52521',
-  white: '#FFFFFF', brick: '#C84B00', green: '#43A047',
-  pipe: '#43A047', pipeEdge: '#1B5E20', cloud: '#FFFFFF'
-};
-
-const state = {
-  started: false, over: false,
-  score: 0, hi: parseInt(localStorage.getItem('marioHi') || '0'),
-  lives: 3, frame: 0, speed: 4,
-  clouds: [], pipes: [], coins: []
-};
-
-// Mario
-const mario = {
-  x: 80, y: GROUND - 32, w: 28, h: 32,
-  vy: 0, jumps: 0, maxJumps: 2,
-  dead: false, invincible: 0,
-  walk: 0,
-  jump() {
-    if (this.jumps < this.maxJumps) {
-      this.vy = -12;
-      this.jumps++;
-    }
-  }
-};
-
-// Spawn clouds
-for (let i = 0; i < 4; i++) {
-  state.clouds.push({ x: 100 + i * 250, y: 20 + Math.random() * 30, w: 80 + Math.random() * 40 });
-}
-
-// Spawn initial pipe
-state.pipes.push({ x: W + 200, h: 60 + Math.random() * 40, passed: false });
-
-function spawnPipe() {
-  state.pipes.push({ x: W + 50, h: 50 + Math.random() * 50, passed: false });
-}
-function spawnCoin(x, y) {
-  state.coins.push({ x, y, alive: true, anim: 0 });
-}
-
-// Drawing functions
-function drawMario(x, y, walk, dead, invincible) {
-  if (invincible > 0 && Math.floor(invincible / 4) % 2 === 0) return;
-  ctx.save();
-
-  // Body (red)
-  ctx.fillStyle = C.red;
-  ctx.fillRect(x + 4, y + 10, 20, 14);
-
-  // Overalls (blue)
-  ctx.fillStyle = '#1565C0';
-  ctx.fillRect(x + 4, y + 18, 20, 10);
-
-  // Hat (red)
-  ctx.fillStyle = C.red;
-  ctx.fillRect(x + 2, y + 5, 24, 6);
-  ctx.fillRect(x + 6, y + 1, 16, 6);
-
-  // Face (skin)
-  ctx.fillStyle = '#FFCC80';
-  ctx.fillRect(x + 6, y + 8, 16, 8);
-
-  // Eyes
-  ctx.fillStyle = C.dark;
-  if (!dead) {
-    ctx.fillRect(x + 14, y + 10, 4, 3);
-  } else {
-    ctx.fillRect(x + 12, y + 10, 3, 2);
-    ctx.fillRect(x + 17, y + 10, 3, 2);
-    ctx.fillRect(x + 14, y + 13, 4, 2);
-  }
-
-  // Mustache
-  ctx.fillStyle = C.dark;
-  ctx.fillRect(x + 10, y + 14, 12, 2);
-
-  // Legs (animated)
-  if (!dead) {
-    const lOff = Math.sin(walk * 0.3) * 4;
-    ctx.fillStyle = '#1565C0';
-    ctx.fillRect(x + 6, y + 26, 8, 6 + lOff);
-    ctx.fillRect(x + 14, y + 26, 8, 6 - lOff);
-    // Shoes
-    ctx.fillStyle = C.dark;
-    ctx.fillRect(x + 4, y + 30 + lOff, 10, 4);
-    ctx.fillRect(x + 14, y + 30 - lOff, 10, 4);
-  } else {
-    ctx.fillStyle = '#1565C0';
-    ctx.fillRect(x + 4, y + 26, 8, 8);
-    ctx.fillRect(x + 16, y + 26, 8, 8);
-  }
-
-  // Arms
-  ctx.fillStyle = '#FFCC80';
-  ctx.fillRect(x, y + 12, 6, 6);
-  ctx.fillRect(x + 22, y + 12, 6, 6);
-
-  ctx.restore();
-}
-
-function drawPipe(x, h) {
-  const pw = 44, headH = 14;
-  // Body
-  ctx.fillStyle = C.pipe;
-  ctx.fillRect(x + 4, GROUND - h, pw - 8, h);
-  // Shadow on body
-  ctx.fillStyle = C.pipeEdge;
-  ctx.fillRect(x + 4, GROUND - h, 6, h);
-  ctx.fillRect(x + pw - 12, GROUND - h, 6, h);
-  // Head
-  ctx.fillStyle = C.pipe;
-  ctx.fillRect(x, GROUND - h - headH, pw, headH);
-  // Head border
-  ctx.fillStyle = C.pipeEdge;
-  ctx.fillRect(x, GROUND - h - headH, pw, 4);
-  ctx.fillRect(x, GROUND - h - headH, 4, headH);
-  ctx.fillRect(x + pw - 4, GROUND - h - headH, 4, headH);
-}
-
-function drawCoin(x, y, anim) {
-  const scale = Math.abs(Math.cos(anim * 0.15));
-  ctx.save();
-  ctx.translate(x + 8, y + 8);
-  ctx.scale(scale, 1);
-  ctx.fillStyle = C.gold;
-  ctx.beginPath();
-  ctx.arc(0, 0, 7, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = '#F9A825';
-  ctx.beginPath();
-  ctx.arc(-1, -1, 5, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = C.gold;
-  ctx.font = 'bold 6px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('$', 0, 2);
-  ctx.restore();
-}
-
-function drawCloud(x, y, w) {
-  ctx.fillStyle = C.white;
-  ctx.fillRect(x + w * 0.1, y + 12, w * 0.8, 12);
-  ctx.beginPath();
-  ctx.arc(x + w * 0.25, y + 12, 10, 0, Math.PI * 2); ctx.fill();
-  ctx.beginPath();
-  ctx.arc(x + w * 0.5,  y + 8,  14, 0, Math.PI * 2); ctx.fill();
-  ctx.beginPath();
-  ctx.arc(x + w * 0.75, y + 12, 10, 0, Math.PI * 2); ctx.fill();
-}
-
-function drawGround() {
-  // Grass
-  ctx.fillStyle = C.groundTop;
-  ctx.fillRect(0, GROUND, W, 6);
-  // Dirt
-  ctx.fillStyle = C.ground;
-  ctx.fillRect(0, GROUND + 6, W, H - GROUND - 6);
-  // Dithering on top
-  ctx.fillStyle = '#388E3C';
-  for (let i = 0; i < W; i += 16) {
-    ctx.fillRect(i, GROUND + 4, 8, 4);
-  }
-}
-
-function drawScore() {
-  ctx.fillStyle = C.dark;
-  ctx.font = '10px "Press Start 2P", monospace';
-  ctx.textAlign = 'left';
-  ctx.fillText('SCORE', 10, 20);
-  ctx.fillStyle = C.dark;
-  ctx.fillText(String(state.score).padStart(6, '0'), 10, 34);
-  ctx.fillText('HI ' + String(state.hi).padStart(6, '0'), W/2 - 60, 20);
-}
-
-function drawStartScreen() {
-  ctx.fillStyle = 'rgba(0,0,0,0.5)';
-  ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = C.white;
-  ctx.font = '14px "Press Start 2P", monospace';
-  ctx.textAlign = 'center';
-  ctx.fillText('MARIO RUNNER', W/2, H/2 - 20);
-  ctx.font = '8px "Press Start 2P", monospace';
-  ctx.fillStyle = C.gold;
-  ctx.fillText('PRESS SPACE OR TAP TO START', W/2, H/2 + 10);
-}
-
-function drawGameOver() {
-  ctx.fillStyle = 'rgba(0,0,0,0.6)';
-  ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = C.red;
-  ctx.font = '16px "Press Start 2P", monospace';
-  ctx.textAlign = 'center';
-  ctx.fillText('GAME OVER', W/2, H/2 - 20);
-  ctx.font = '8px "Press Start 2P", monospace';
-  ctx.fillStyle = C.white;
-  ctx.fillText('SCORE: ' + state.score, W/2, H/2 + 5);
-  ctx.fillStyle = C.gold;
-  ctx.fillText('PRESS SPACE / TAP TO RETRY', W/2, H/2 + 25);
-}
-
-let lastPipe = 0;
-let lastCoin = 0;
-
-function update() {
-  if (!state.started || state.over) return;
-  state.frame++;
-
-  // Speed ramp
-  state.speed = 4 + Math.floor(state.score / 500) * 0.5;
-  if (state.speed > 12) state.speed = 12;
-
-  // Mario physics
-  mario.vy += 0.6;
-  mario.y += mario.vy;
-  if (mario.y >= GROUND - mario.h) {
-    mario.y = GROUND - mario.h;
-    mario.vy = 0;
-    mario.jumps = 0;
-  }
-  mario.walk++;
-  if (mario.invincible > 0) mario.invincible--;
-
-  // Clouds
-  for (const c of state.clouds) {
-    c.x -= state.speed * 0.2;
-    if (c.x + c.w < 0) c.x = W + 50;
-  }
-
-  // Pipes
-  if (state.frame - lastPipe > 80 + Math.floor(Math.random() * 80)) {
-    spawnPipe();
-    lastPipe = state.frame;
-    if (Math.random() > 0.4) spawnCoin(state.pipes[state.pipes.length-1].x + 10, GROUND - state.pipes[state.pipes.length-1].h - 40);
-  }
-  for (let i = state.pipes.length - 1; i >= 0; i--) {
-    const p = state.pipes[i];
-    p.x -= state.speed;
-    if (!p.passed && p.x + 44 < mario.x) { p.passed = true; state.score += 100; }
-    if (p.x + 44 < 0) state.pipes.splice(i, 1);
-    // Collision (AABB)
-    const pw = 44, headH = 14;
-    const px = p.x, py = GROUND - p.h - headH, ph = p.h + headH;
-    const mx = mario.x + 4, my = mario.y, mw = mario.w - 8, mh = mario.h;
-    if (mario.invincible === 0 &&
-        mx < px + pw && mx + mw > px &&
-        my < py + ph && my + mh > py) {
-      hit();
-    }
-  }
-
-  // Coins
-  for (let i = state.coins.length - 1; i >= 0; i--) {
-    const c = state.coins[i];
-    c.x -= state.speed;
-    c.anim++;
-    if (c.alive) {
-      const cx = c.x + 2, cy = c.y + 2, cw = 12, ch = 12;
-      const mx = mario.x + 4, my = mario.y, mw = mario.w - 8, mh = mario.h;
-      if (mx < cx + cw && mx + mw > cx && my < cy + ch && my + mh > cy) {
-        c.alive = false;
-        state.score += 50;
-        updateHUD();
-      }
-    }
-    if (c.x + 16 < 0) state.coins.splice(i, 1);
-  }
-
-  // Score tick
-  if (state.frame % 6 === 0) { state.score++; updateHUD(); }
-}
-
-function hit() {
-  state.lives--;
-  mario.invincible = 80;
-  document.getElementById('livesDisplay').textContent = state.lives;
-  if (state.lives <= 0) {
-    state.over = true;
-    if (state.score > state.hi) {
-      state.hi = state.score;
-      localStorage.setItem('marioHi', state.hi);
-    }
-    updateHUD();
-  }
-}
-
-function updateHUD() {
-  document.getElementById('scoreDisplay').textContent = state.score;
-  document.getElementById('livesDisplay').textContent = state.lives;
-  document.getElementById('hiDisplay').textContent = state.hi;
-}
-
-function draw() {
-  // Sky
-  ctx.fillStyle = C.sky;
-  ctx.fillRect(0, 0, W, H);
-
-  // Clouds
-  for (const c of state.clouds) drawCloud(c.x, c.y, c.w);
-
-  // Ground
-  drawGround();
-
-  // Pipes
-  for (const p of state.pipes) drawPipe(p.x, p.h);
-
-  // Coins
-  for (const c of state.coins) if (c.alive) drawCoin(c.x, c.y);
-
-  // Mario
-  drawMario(mario.x, mario.y, mario.walk, mario.dead, mario.invincible);
-
-  // Score
-  drawScore();
-
-  // Overlays
-  if (!state.started) drawStartScreen();
-  if (state.over) drawGameOver();
-}
-
-function reset() {
-  mario.y = GROUND - mario.h;
-  mario.vy = 0;
-  mario.jumps = 0;
-  mario.invincible = 0;
-  state.pipes.length = 0;
-  state.coins.length = 0;
-  state.score = 0;
-  state.lives = 3;
-  state.frame = 0;
-  state.speed = 4;
-  state.over = false;
-  lastPipe = 0;
-  updateHUD();
-  state.pipes.push({ x: W + 200, h: 60 + Math.random() * 40, passed: false });
-}
-
-function action() {
-  if (!state.started) { state.started = true; return; }
-  if (state.over) { reset(); return; }
-  mario.jump();
-}
-
-// Input
-document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); action(); } });
-canvas.addEventListener('click', action);
-canvas.addEventListener('touchstart', e => { e.preventDefault(); action(); }, { passive: false });
-
-// Loop
-function loop() {
-  update();
-  draw();
-  requestAnimationFrame(loop);
-}
-loop();
-</script>
-
+<!--
+  Loaded as plain scripts (not type="module") in dependency order, so the
+  game works when index.html is opened directly via file:// — ES module
+  imports are blocked by CORS on the file:// protocol in most browsers.
+  Each file attaches its exports to the shared window.MarioGame namespace.
+-->
+<script src="js/game/config.js"></script>
+<script src="js/game/canvas.js"></script>
+<script src="js/game/mario.js"></script>
+<script src="js/game/obstacles.js"></script>
+<script src="js/game/spawner.js"></script>
+<script src="js/game/collision.js"></script>
+<script src="js/game/scoreStore.js"></script>
+<script src="js/game/renderer.js"></script>
+<script src="js/game/hud.js"></script>
+<script src="js/game/input.js"></script>
+<script src="js/game/engine.js"></script>
+<script src="js/game/main.js"></script>
+<script defer src="js/site.js"></script>
 </body>
 </html>
